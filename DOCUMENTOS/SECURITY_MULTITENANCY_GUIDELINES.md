@@ -1,6 +1,6 @@
 # Guía y Directrices: Seguridad y Aislamiento Multi-Tenant (sebas-pos)
 
-**Versión:** 1.0  
+**Versión:** 1.0.1  
 **Fecha:** 22 de Octubre, 2026  
 **Ámbito:** Arquitectura Multi-Tenant, Supabase Auth, Row Level Security (RLS) y React Native / Expo Web (PWA)
 

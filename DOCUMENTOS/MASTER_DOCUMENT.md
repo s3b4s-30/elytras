@@ -1,5 +1,8 @@
 # MASTER DOCUMENT — ELYTRAS (SEBAS POS)
 
+> **Versión Actual Estable:** **v1.0.1**  
+> **Próxima Versión:** v1.1.0 (programada tras optimizaciones PWA en iPhone/Android y posterior pulido de escritorio)
+
 ## 1. Propósito del documento
 Este documento centraliza la arquitectura funcional, técnica, modular y visual de **elytras** (nombre comercial en app: **Sebas POS**), un sistema POS móvil orientado a tiendas de telefonía y accesorios con estética **iOS 19 / Apple HIG LiquidGlass**.
 

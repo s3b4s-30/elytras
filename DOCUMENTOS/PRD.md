@@ -1,9 +1,12 @@
 # PRODUCT REQUIREMENTS DOCUMENT (PRD) — SEBAS-POS
 
+> **Versión Actual:** **v1.0.1**  
+> **Próxima Versión Mayor/Menor:** v1.1.0 (programada tras optimizaciones PWA móvil y refinamiento de escritorio)
+
 ## 1. Visión del Producto
 **sebas-pos** es un sistema de Punto de Venta (POS), Control de Inventario por Lotes, Trazabilidad de Garantías y Arqueo Financiero para tiendas de accesorios y tecnología móvil, con estética **Apple HIG / iOS 26 Liquid Glass**.
 
-> **PIVOTE ESTRATÉGICO DEL MVP (v2.2): WEB / PWA PRIMERO.**
+> **ESTADO Y ARQUITECTURA DEL MVP (v1.0.1): WEB / PWA PRIMERO.**
 > La distribución del MVP es una **Progressive Web App**: un enlace web que se instala en la pantalla de inicio de iPhone/Android ("Añadir a pantalla de inicio") y se abre también en navegadores de escritorio. **No se depende de App Store / Google Play en esta fase** (sin cuenta de \$99/año, sin revisión, actualizaciones instantáneas). El código Expo / React Native sigue siendo universal para compilar nativo en el futuro (EAS Build) sin reescribir.
 >
 > **Multi-tenant**: cada colega o cliente se registra con correo y contraseña (Supabase Auth) y obtiene **su propia tienda aislada**: inventario, ventas, proveedores y cierres no se mezclan entre tiendas.

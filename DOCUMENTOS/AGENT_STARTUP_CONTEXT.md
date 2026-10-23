@@ -1,5 +1,6 @@
 # AGENT_STARTUP_CONTEXT.md — Resumen Maestro de Arranque
 
+> **Versión Actual Estable:** **v1.0.1**  
 > **Para cualquier IA, Agente o Desarrollador que inicie una sesión en este repositorio:**  
 > Lee este archivo primero. Contiene toda la verdad técnica, el estado del proyecto, la ubicación del código activo y las reglas obligatorias para no romper la arquitectura.
 

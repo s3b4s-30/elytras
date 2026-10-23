@@ -1,10 +1,17 @@
 # HISTORIAL CONSOLIDADO DE VERSIONES — SEBAS-POS
 
-Este documento registra la evolución arquitectónica y funcional de **sebas-pos** en un historial limpio y consolidado, libre de iteraciones intermedias descartadas.
+> **Versión Actual Estable de Lanzamiento:** **v1.0.1**  
+> **Política de Versionamiento Semántico:** Esta es la versión oficial inicial para despliegue público y respaldo. La siguiente versión (v1.1.0) se reservará para cambios o hitos grandes de arquitectura. Las tareas inmediatas planificadas corresponden a la optimización de la experiencia PWA para iOS (iPhone) y Android, seguida del pulido para escritorio.
+> 
+> A continuación se conserva el historial completo y detallado de evolución funcional y técnica.
 
 ---
 
-## [v2.7] - 2026-10-22 (Edición Completa de Proveedores y Corrección de Viewport/Espacio Inferior)
+## [v1.0.1] - 2026-10-22 (Lanzamiento Estable: Edición Completa de Proveedores, Corrección de Viewport y Monorepo Universal)
+- **Consolidación de Versión 1.0.1 para GitHub y Backup**:
+  - Unificación de manifiestos y paquetes en versión `1.0.1` (`package.json`, `universal/package.json`, `universal/app.json`).
+  - Eliminación de submódulo git anidado en `universal/` para garantizar seguimiento integral y limpio de archivos en un único repositorio.
+  - Protección de secretos `.env` bajo auditoría multi-tenant y creación de plantilla `.env.example`.
 - **Edición Completa de Proveedores (`SuppliersSheet` en `TopMenu.js`)**:
   - Botón de edición con icono de lápiz (`pencil-outline`) y acción rápida en cada ítem de proveedor.
   - Modo interactivo "EDITAR PROVEEDOR" que precarga nombre, contacto/teléfono y color seleccionado en los campos.
