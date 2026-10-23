@@ -1,0 +1,1225 @@
+/* ==========================================================================
+   SEBAS POS — APPLE HIG DESIGN SYSTEM (TITANIO, AZUL ELÉCTRICO & OLED)
+   Soporte nativo iOS (Capacitor) + Web Responsiva
+   ========================================================================== */
+
+:root,
+[data-theme="light"] {
+  /* Variables de Relleno Seguro Nativo (iOS Safe Areas) */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --tabbar-total-space: 108px;
+
+  /* Paleta Modo Claro Titanio */
+  --bg-primary: #F2F2F7;
+  --bg-sticky-header: rgba(242, 242, 247, 0.80);
+  --bg-elevated: rgba(255, 255, 255, 0.88);
+  --bg-elevated-solid: #FFFFFF;
+  --bg-secondary: rgba(118, 118, 128, 0.10);
+  --bg-tertiary: rgba(118, 118, 128, 0.18);
+  --bg-glass: rgba(255, 255, 255, 0.76);
+  --bg-glass-heavy: rgba(242, 242, 247, 0.82);
+  --bg-glass-pill: rgba(255, 255, 255, 0.82);
+
+  --text-primary: #000000;
+  --text-secondary: #6C6C70;
+  --text-tertiary: #8E8E93;
+  --titanium-metallic: #8E8E93;
+  --titanium-highlight: #AEAEB2;
+
+  --accent-blue: #007AFF;
+  --accent-blue-hover: #0062CC;
+  --accent-blue-soft: rgba(0, 122, 255, 0.12);
+
+  --status-green: #34C759;
+  --status-green-soft: rgba(52, 199, 89, 0.14);
+  --status-amber: #FF9500;
+  --status-amber-soft: rgba(255, 149, 0, 0.14);
+  --status-red: #FF3B30;
+  --status-red-soft: rgba(255, 59, 48, 0.14);
+
+  /* Bordes suaves y translúcidos en Modo Claro (NUNCA negros sólidos) */
+  --border-hairline: rgba(0, 0, 0, 0.06);
+  --border-card: rgba(0, 0, 0, 0.08); /* border-black/10 / border-gray-200 */
+  --border-specular: rgba(0, 0, 0, 0.08);
+  --glass-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.7);
+  --shadow-card: 0 8px 24px -6px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+  --shadow-floating: 0 16px 36px -8px rgba(15, 23, 42, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.06);
+
+  color-scheme: light;
+}
+
+.dark,
+[data-theme="dark"] {
+  /* Paleta Modo Oscuro OLED Puro (#000000) + Titanio & Azul Eléctrico (#007AFF) */
+  --bg-primary: #000000;
+  --bg-sticky-header: rgba(10, 10, 12, 0.78);
+  --bg-elevated: rgba(28, 28, 30, 0.78);
+  --bg-elevated-solid: #1C1C1E;
+  --bg-secondary: #2C2C2E;
+  --bg-tertiary: #3A3A3C;
+  --bg-glass: rgba(24, 24, 26, 0.72);
+  --bg-glass-heavy: rgba(12, 12, 14, 0.78);
+  --bg-glass-pill: rgba(44, 44, 46, 0.68);
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #98989D;
+  --text-tertiary: #636366;
+  --titanium-metallic: #8E8E93;
+  --titanium-highlight: #C7C7CC;
+
+  --accent-blue: #0A84FF;
+  --accent-blue-hover: #409CFF;
+  --accent-blue-soft: rgba(10, 132, 255, 0.18);
+
+  --status-green: #30D158;
+  --status-green-soft: rgba(48, 209, 88, 0.16);
+  --status-amber: #FF9F0A;
+  --status-amber-soft: rgba(255, 159, 10, 0.16);
+  --status-red: #FF453A;
+  --status-red-soft: rgba(255, 69, 58, 0.16);
+
+  /* Bordes especulares sutiles en Modo Oscuro OLED (border-white/10) */
+  --border-hairline: rgba(255, 255, 255, 0.08);
+  --border-card: rgba(255, 255, 255, 0.07);
+  --border-specular: rgba(255, 255, 255, 0.14);
+  --glass-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.16);
+  --shadow-card: 0 18px 40px -8px rgba(0, 0, 0, 0.85), 0 4px 12px rgba(0, 0, 0, 0.60), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  --shadow-floating: 0 24px 52px -8px rgba(0, 0, 0, 0.92), 0 0 0 1px rgba(255, 255, 255, 0.10);
+
+  color-scheme: dark;
+}
+
+/* ==========================================================================
+   RESET GLOBAL Y OCULTACIÓN TOTAL DE BARRAS DE SCROLL SECUNDARIAS
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border-color: var(--border-card);
+  -webkit-tap-highlight-color: transparent;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro Rounded", "Inter", system-ui, sans-serif;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  overscroll-behavior-y: none;
+  transition: background-color 0.25s cubic-bezier(0.32, 0.72, 0, 1), color 0.2s ease;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  color: inherit;
+  border: 0 solid var(--border-card);
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Contenedor Raíz con variables nativas de relleno seguro */
+#root,
+.app-root-safe {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* ==========================================================================
+   BLOQUE SUPERIOR UNIFICADO STICKY/FIXED HEADER (Large Title + Search + Categorías)
+   Clavado en top: 0 para que jamás se baje ni se mueva al hacer scroll
+   ========================================================================== */
+
+.unified-sticky-header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 40 !important;
+  width: 100%;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 12px);
+  padding-bottom: 12px;
+  padding-left: max(18px, calc(env(safe-area-inset-left, 0px) + 18px));
+  padding-right: max(18px, calc(env(safe-area-inset-right, 0px) + 18px));
+  background-color: var(--bg-glass-heavy) !important;
+  backdrop-filter: blur(28px) saturate(195%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(195%) !important;
+  border-bottom: 1px solid var(--border-hairline);
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.14);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.backdrop-blur-\[28px\] {
+  backdrop-filter: blur(28px) saturate(195%);
+  -webkit-backdrop-filter: blur(28px) saturate(195%);
+}
+
+.saturate-\[195\%\] {
+  backdrop-filter: blur(28px) saturate(195%);
+  -webkit-backdrop-filter: blur(28px) saturate(195%);
+}
+
+.bg-\[var\(--bg-glass-heavy\)\] {
+  background-color: var(--bg-glass-heavy);
+}
+
+.border-\[var\(--border-hairline\)\] {
+  border-color: var(--border-hairline);
+}
+
+/* Carrusel horizontal de categorías limpio (SIN barras ni líneas grises inferiores y con py-2 para no cortar el borde superior de píldoras) */
+.filter-carousel,
+.no-scrollbar,
+.scrollbar-none {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.filter-carousel::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Contenedor principal de vistas con holgura inferior anti-solapamiento */
+.main-content-safe {
+  flex: 1 1 auto;
+  width: 100%;
+  padding-bottom: calc(var(--tabbar-total-space) + env(safe-area-inset-bottom, 0px) + 56px);
+}
+
+.view-body-container {
+  width: 100%;
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: max(18px, calc(env(safe-area-inset-left, 0px) + 18px));
+  padding-right: max(18px, calc(env(safe-area-inset-right, 0px) + 18px));
+}
+
+/* ==========================================================================
+   BOTÓN FLOTANTE MINIMALISTA ICON-ONLY (FAB VENDER) Y TABBAR
+   ========================================================================== */
+
+.fab-dock-safe {
+  position: fixed;
+  right: max(20px, calc(env(safe-area-inset-right, 0px) + 20px));
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 112px);
+  z-index: 38;
+  pointer-events: none;
+}
+
+/* Barra Flotante de Resumen de Venta con borde acoplado detrás de la TabBar y contenido elevado sin ser tapado */
+.pos-summary-sticky-dock {
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 52px) !important;
+  z-index: 39 !important;
+  padding-left: max(16px, calc(env(safe-area-inset-left, 0px) + 16px));
+  padding-right: max(16px, calc(env(safe-area-inset-right, 0px) + 16px));
+  pointer-events: none;
+}
+
+.pos-summary-bar-inner {
+  pointer-events: auto;
+  background: var(--bg-glass-heavy);
+  backdrop-filter: blur(28px) saturate(195%);
+  -webkit-backdrop-filter: blur(28px) saturate(195%);
+  border: 1px solid var(--border-specular);
+  border-bottom: none;
+  border-radius: 26px 26px 0 0;
+  padding: 12px 12px 34px 12px;
+  box-shadow: 0 -10px 30px -4px rgba(0, 0, 0, 0.36), var(--shadow-floating);
+}
+
+.fab-icon-only {
+  pointer-events: auto;
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #007AFF;
+  color: #FFFFFF;
+  backdrop-filter: blur(28px) saturate(195%);
+  -webkit-backdrop-filter: blur(28px) saturate(195%);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  box-shadow: 0 14px 32px -4px rgba(0, 122, 255, 0.55), var(--shadow-floating);
+  transition: transform 0.18s cubic-bezier(0.32, 0.72, 0, 1), background-color 0.18s ease;
+  cursor: pointer;
+}
+
+.fab-icon-only:hover {
+  background-color: var(--accent-blue-hover);
+}
+
+.fab-icon-only:active {
+  transform: scale(0.92);
+}
+
+/* Barra de Navegación Inferior Flotante sobre la barra gestual de iOS */
+.tabbar-floating-safe {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  padding-top: 8px;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
+  padding-left: max(16px, calc(env(safe-area-inset-left, 0px) + 16px));
+  padding-right: max(16px, calc(env(safe-area-inset-right, 0px) + 16px));
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.42) 0%, transparent 100%);
+}
+
+[data-theme="light"] .tabbar-floating-safe {
+  background: linear-gradient(to top, rgba(242, 242, 247, 0.78) 0%, transparent 100%);
+}
+
+/* ==========================================================================
+   COMPONENTES LIQUIDGLASS Y TARJETAS HIG (MODO OSCURO OLED & MODO CLARO)
+   ========================================================================== */
+
+/* Jerarquía Tipográfica iOS Large Title (Apple HIG) */
+.ios-large-title {
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+  font-size: clamp(1.65rem, 3.8vw, 2.05rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  color: var(--text-primary);
+}
+
+/* Tipografía numérica tabular para montos en Pesos Colombianos (COP) */
+.cop-mono {
+  font-family: "SF Pro Rounded", -apple-system, BlinkMacSystemFont, ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.02em;
+}
+
+/* Efecto Cristal Avanzado LiquidGlass */
+.liquid-glass {
+  background: var(--bg-glass);
+  backdrop-filter: blur(28px) saturate(195%);
+  -webkit-backdrop-filter: blur(28px) saturate(195%);
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-card);
+}
+
+.liquid-glass-heavy {
+  background: var(--bg-glass-heavy);
+  backdrop-filter: blur(28px) saturate(195%);
+  -webkit-backdrop-filter: blur(28px) saturate(195%);
+  border: 1px solid var(--border-specular);
+  box-shadow: var(--shadow-floating);
+}
+
+/* Tarjeta HIG con borde dinámico según el tema activo (NUNCA negro sólido en Modo Claro) */
+.hig-card {
+  position: relative;
+  background: var(--bg-elevated);
+  backdrop-filter: blur(28px) saturate(195%);
+  -webkit-backdrop-filter: blur(28px) saturate(195%);
+  border: 1px solid var(--border-card);
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.18s cubic-bezier(0.32, 0.72, 0, 1), border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hig-card-interactive {
+  cursor: pointer;
+}
+
+.hig-card-interactive:hover {
+  border-color: rgba(0, 122, 255, 0.42);
+}
+
+.hig-card-interactive:active {
+  transform: scale(0.985);
+}
+
+/* Clases de borde adaptativo según el tema activo (Modo Claro Titanio vs Modo Oscuro OLED) */
+.hig-border,
+.border-white\/10,
+.border-black\/10,
+.border-gray-200,
+.border-slate-200 {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--border-card);
+}
+
+.dark .hig-border,
+[data-theme="dark"] .hig-border,
+.dark .dark\:border-white\/10,
+[data-theme="dark"] .dark\:border-white\/10,
+.dark .border-white\/10,
+[data-theme="dark"] .border-white\/10 {
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+[data-theme="light"] .hig-border,
+[data-theme="light"] .border-white\/10,
+[data-theme="light"] .border-black\/10,
+[data-theme="light"] .border-gray-200,
+[data-theme="light"] .border-slate-200 {
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Divisores internos adaptativos por tema */
+.hig-divider,
+.border-t {
+  border-top: 1px solid var(--border-hairline) !important;
+}
+
+.border-b {
+  border-bottom: 1px solid var(--border-hairline) !important;
+}
+
+.border {
+  border: 1px solid var(--border-card);
+}
+
+/* Barra superior e inferior interna de cada tarjeta de producto sin cortes ni desbordes */
+.card-meta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.card-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 12px;
+  margin-top: 4px;
+  border-top: 1px solid var(--border-hairline);
+}
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Selector iOS Personalizado para Proveedores / Tiendas */
+.ios-supplier-selector {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: 16px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-card);
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.ios-supplier-selector:hover,
+.ios-supplier-selector:focus {
+  border-color: var(--accent-blue);
+}
+
+.ios-supplier-dropdown {
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 20px;
+  background: var(--bg-glass-heavy);
+  backdrop-filter: blur(28px) saturate(195%);
+  -webkit-backdrop-filter: blur(28px) saturate(195%);
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-floating);
+}
+
+/* Tienda de Proveedores — Panel Deslizable (Slide-Up >= 50% de pantalla, iOS Ease-Out) */
+.ios-supplier-sheet-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.58);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overscroll-behavior: none;
+  animation: iosBackdropFade 0.24s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.ios-supplier-sheet-panel {
+  width: 100%;
+  max-width: 34rem;
+  min-height: 50dvh;
+  max-height: 85dvh;
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  background: var(--bg-glass-heavy);
+  backdrop-filter: blur(28px) saturate(195%);
+  -webkit-backdrop-filter: blur(28px) saturate(195%);
+  border: 1px solid var(--border-specular);
+  border-bottom: none;
+  box-shadow: var(--shadow-floating);
+  overflow: hidden;
+  overscroll-behavior: contain;
+  animation: iosSlideUpEaseOut 0.34s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.filter-carousel {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: nowrap !important;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.tactile-chip {
+  transition:
+    transform 0.16s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.tactile-chip:active {
+  transform: scale(0.94);
+}
+
+.ios-scroll-inertia {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.hig-input {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-card);
+  border-radius: 14px;
+  padding: 11px 15px;
+  font-size: 14px;
+  line-height: 1.35;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.hig-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.hig-input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px var(--accent-blue-soft);
+}
+
+.btn-electric {
+  background-color: var(--accent-blue);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  font-weight: 600;
+  box-shadow: 0 6px 18px -4px rgba(0, 122, 255, 0.48);
+  transition: transform 0.15s cubic-bezier(0.32, 0.72, 0, 1), background-color 0.15s ease, opacity 0.15s ease;
+}
+
+.btn-electric:hover {
+  background-color: var(--accent-blue-hover);
+}
+
+.btn-electric:active {
+  transform: scale(0.96);
+}
+
+.btn-electric:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   SISTEMA DE UTILIDADES CSS AUTOCONTENIDO (LAYOUT, ESPACIADOS Y TIPOGRAFÍA)
+   ========================================================================== */
+
+/* Display & Flexbox */
+.block { display: block; }
+.inline-block { display: inline-block; }
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.grid { display: grid; }
+.hidden { display: none; }
+
+.flex-col { flex-direction: column; }
+.flex-row { flex-direction: row; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-1 { flex: 1 1 0%; }
+.shrink-0 { flex-shrink: 0; }
+
+.items-start { align-items: flex-start; }
+.items-center { align-items: center; }
+.items-end { align-items: flex-end; }
+.justify-start { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-end { justify-content: flex-end; }
+
+/* Grid Columns */
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* Gaps */
+.gap-1 { gap: 0.25rem; }
+.gap-1\.5 { gap: 0.375rem; }
+.gap-2 { gap: 0.5rem; }
+.gap-2\.5 { gap: 0.625rem; }
+.gap-3 { gap: 0.75rem; }
+.gap-3\.5 { gap: 0.875rem; }
+.gap-4 { gap: 1rem; }
+.gap-5 { gap: 1.25rem; }
+.gap-6 { gap: 1.5rem; }
+
+/* Vertical Stack Spacing (space-y-*) */
+.space-y-1 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.25rem; }
+.space-y-1\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.375rem; }
+.space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.5rem; }
+.space-y-2\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.625rem; }
+.space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.75rem; }
+.space-y-3\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.875rem; }
+.space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; }
+.space-y-5 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.25rem; }
+.space-y-6 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.5rem; }
+
+/* Positioning */
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.sticky { position: sticky; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.top-0 { top: 0; }
+.bottom-0 { bottom: 0; }
+.left-0 { left: 0; }
+.right-0 { right: 0; }
+.left-3\.5 { left: 0.875rem; }
+.right-2\.5 { right: 0.625rem; }
+.right-3 { right: 0.75rem; }
+.top-1\/2 { top: 50%; }
+.top-full { top: 100%; }
+.-top-1 { top: -0.25rem; }
+.-right-1 { right: -0.25rem; }
+.-top-1\.5 { top: -0.375rem; }
+.-right-2\.5 { right: -0.625rem; }
+.-translate-y-1\/2 { transform: translateY(-50%); }
+
+.z-30 { z-index: 30; }
+.z-40 { z-index: 40; }
+.z-50 { z-index: 50; }
+.z-60 { z-index: 60; }
+.z-70 { z-index: 70; }
+
+/* Selector de Fecha con Ruedas Deslizantes 3D estilo iOS (UIDatePicker Drum) + Calendario de Rango */
+.ios-wheel-container {
+  position: relative;
+  height: 148px;
+  border-radius: 20px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-card);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.15fr 1.35fr 0.95fr;
+  user-select: none;
+  box-shadow: inset 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.ios-wheel-mask {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.35) 20%,
+    #000000 38%,
+    #000000 62%,
+    rgba(0, 0, 0, 0.35) 80%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.35) 20%,
+    #000000 38%,
+    #000000 62%,
+    rgba(0, 0, 0, 0.35) 80%,
+    transparent 100%
+  );
+}
+
+.ios-wheel-highlight {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 50%;
+  height: 38px;
+  transform: translateY(-50%);
+  border-radius: 12px;
+  background-color: var(--accent-blue-soft);
+  border: 1px solid rgba(0, 122, 255, 0.35);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ios-wheel-column {
+  position: relative;
+  z-index: 2;
+  height: 148px;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  padding-top: 55px;
+  padding-bottom: 55px;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.ios-wheel-column:active {
+  cursor: grabbing;
+}
+
+.ios-wheel-item {
+  height: 38px;
+  scroll-snap-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  opacity: 0.45;
+  transform: scale(0.88);
+  transition: color 0.14s ease, transform 0.14s ease, opacity 0.14s ease;
+}
+
+.ios-wheel-item-near {
+  color: var(--text-secondary);
+  opacity: 0.78;
+  transform: scale(0.95);
+}
+
+.ios-wheel-item-active {
+  color: var(--accent-blue);
+  font-weight: 800;
+  font-size: 15px;
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+.ios-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+
+/* Sizing */
+.w-full { width: 100%; }
+.w-5 { width: 1.25rem; }
+.w-6 { width: 1.5rem; }
+.w-7 { width: 1.75rem; }
+.w-8 { width: 2rem; }
+.w-10 { width: 2.5rem; }
+.w-11 { width: 2.75rem; }
+.w-14 { width: 3.5rem; }
+.w-28 { width: 7rem; }
+.w-40 { width: 10rem; }
+.w-72 { width: 18rem; }
+
+.h-full { height: 100%; }
+.h-px { height: 1px; }
+.h-1\.5 { height: 0.375rem; }
+.h-5 { height: 1.25rem; }
+.h-6 { height: 1.5rem; }
+.h-7 { height: 1.75rem; }
+.h-8 { height: 2rem; }
+.h-10 { height: 2.5rem; }
+.h-11 { height: 2.75rem; }
+.h-14 { height: 3.5rem; }
+.min-w-0 { min-width: 0; }
+.min-w-\[18px\] { min-width: 18px; }
+.min-w-\[20px\] { min-width: 20px; }
+.min-w-\[24px\] { min-width: 24px; }
+.h-\[18px\] { height: 18px; }
+.h-\[20px\] { height: 20px; }
+
+.max-w-md { max-width: 28rem; }
+.max-w-lg { max-width: 32rem; }
+.max-w-xl { max-width: 36rem; }
+.max-w-3xl { max-width: 52rem; }
+.max-h-\[88vh\] { max-height: 88vh; }
+.max-h-\[90vh\] { max-height: 90vh; }
+.min-h-screen { min-height: 100vh; }
+.min-h-dvh { min-height: 100dvh; }
+
+/* Padding */
+.p-0 { padding: 0 !important; }
+.p-2 { padding: 0.5rem; }
+.p-2\.5 { padding: 0.625rem; }
+.p-3 { padding: 0.75rem; }
+.p-3\.5 { padding: 0.875rem; }
+.p-4 { padding: 1.125rem; }
+.p-5 { padding: 1.375rem; }
+.p-6 { padding: 1.625rem; }
+
+.px-1 { padding-left: 0.25rem; padding-right: 0.25rem; }
+.px-1\.5 { padding-left: 0.375rem; padding-right: 0.375rem; }
+.px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+.px-2\.5 { padding-left: 0.625rem; padding-right: 0.625rem; }
+.px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+.px-3\.5 { padding-left: 0.875rem; padding-right: 0.875rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
+
+.py-0\.5 { padding-top: 0.125rem; padding-bottom: 0.125rem; }
+.py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+.py-1\.5 { padding-top: 0.375rem; padding-bottom: 0.375rem; }
+.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.py-2\.5 { padding-top: 0.625rem; padding-bottom: 0.625rem; }
+.py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+.py-3\.5 { padding-top: 0.875rem; padding-bottom: 0.875rem; }
+
+.pt-1 { padding-top: 0.25rem; }
+.pt-2 { padding-top: 0.5rem; }
+.pt-2\.5 { padding-top: 0.625rem; }
+.pt-3 { padding-top: 0.75rem; }
+.pt-4 { padding-top: 1rem; }
+.pt-5 { padding-top: 1.25rem; }
+.pt-6 { padding-top: 1.5rem; }
+.pt-24 { padding-top: calc(env(safe-area-inset-top, 0px) + 92px) !important; }
+.pt-32 { padding-top: calc(env(safe-area-inset-top, 0px) + 144px) !important; }
+.pt-36 { padding-top: calc(env(safe-area-inset-top, 0px) + 192px) !important; }
+.pb-1 { padding-bottom: 0.25rem; }
+.pb-3 { padding-bottom: 0.75rem; }
+.pb-4 { padding-bottom: 1rem; }
+.pb-28 { padding-bottom: 7rem; }
+.pb-48 { padding-bottom: 12rem; }
+.pb-56 { padding-bottom: 14.5rem; }
+.pl-10 { padding-left: 2.65rem !important; }
+.pr-11 { padding-right: 2.75rem !important; }
+.min-h-\[50dvh\] { min-height: 50dvh; }
+
+/* Margin */
+.mx-auto { margin-left: auto; margin-right: auto; }
+.mx-2 { margin-left: 0.5rem; margin-right: 0.5rem; }
+.my-1\.5 { margin-top: 0.375rem; margin-bottom: 0.375rem; }
+.mt-0\.5 { margin-top: 0.125rem; }
+.mt-1 { margin-top: 0.25rem; }
+.mt-1\.5 { margin-top: 0.375rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-2\.5 { margin-top: 0.625rem; }
+.mt-3 { margin-top: 0.75rem; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-1\.5 { margin-bottom: 0.375rem; }
+.mb-3 { margin-bottom: 0.75rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-5 { margin-bottom: 1.25rem; }
+.ml-2 { margin-left: 0.5rem; }
+
+/* Borders & Radius (Squircles) */
+.rounded-lg { border-radius: 0.5rem; }
+.rounded-xl { border-radius: 0.75rem; }
+.rounded-2xl { border-radius: 1.125rem; }
+.rounded-3xl { border-radius: 1.5rem; }
+.rounded-t-3xl { border-top-left-radius: 1.5rem; border-top-right-radius: 1.5rem; }
+.rounded-\[22px\] { border-radius: 22px; }
+.rounded-\[28px\] { border-radius: 28px; }
+.rounded-full { border-radius: 9999px; }
+
+/* Typography */
+.text-\[10px\] { font-size: 10px; line-height: 1.35; }
+.text-\[11px\] { font-size: 11px; line-height: 1.4; }
+.text-xs { font-size: 0.78rem; line-height: 1.45; }
+.text-sm { font-size: 0.92rem; line-height: 1.45; }
+.text-base { font-size: 1rem; line-height: 1.5; }
+.text-lg { font-size: 1.15rem; line-height: 1.4; }
+.text-2xl { font-size: 1.55rem; line-height: 1.2; }
+.text-3xl { font-size: 1.95rem; line-height: 1.15; }
+
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.font-extrabold { font-weight: 800; }
+
+.uppercase { text-transform: uppercase; }
+.tracking-tight { letter-spacing: -0.02em; }
+.tracking-wider { letter-spacing: 0.05em; }
+.tracking-widest { letter-spacing: 0.08em; }
+.leading-tight { line-height: 1.22; }
+.leading-snug { line-height: 1.35; }
+.line-through { text-decoration: line-through; }
+.underline { text-decoration: underline; }
+
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-white { color: #FFFFFF; }
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Overflow & Interactivity */
+.overflow-hidden { overflow: hidden; }
+.overflow-x-auto { overflow-x: auto; }
+.overflow-y-auto { overflow-y: auto; }
+.cursor-pointer { cursor: pointer; }
+.select-none { user-select: none; }
+.pointer-events-none { pointer-events: none; }
+.pointer-events-auto { pointer-events: auto; }
+.opacity-75 { opacity: 0.75; }
+.transition-all { transition: all 0.2s cubic-bezier(0.32, 0.72, 0, 1); }
+.transition-colors { transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease; }
+.transition-transform { transition: transform 0.18s cubic-bezier(0.32, 0.72, 0, 1); }
+.duration-200 { transition-duration: 200ms; }
+.duration-300 { transition-duration: 300ms; }
+.active\:scale-90:active { transform: scale(0.90); }
+.active\:scale-95:active { transform: scale(0.95); }
+button:disabled,
+.disabled\:opacity-40:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Responsive Breakpoints (sm: >= 640px, md: >= 768px) */
+@media (min-width: 640px) {
+  .sm\:p-4 { padding: 1rem; }
+  .sm\:rounded-3xl { border-radius: 1.5rem; }
+  .sm\:items-center { align-items: center; }
+  .sm\:flex-row { flex-direction: row; }
+  .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sm\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .sm\:text-lg { font-size: 1.15rem; }
+  .sm\:text-3xl { font-size: 1.95rem; }
+  .sm\:text-4xl { font-size: 2.35rem; }
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Animaciones nativas estilo iOS Spring & Ease-Out (Abrir, Cerrar, Navegar, Expandir, Devolver) */
+@keyframes iosBackdropFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes iosBackdropFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes iosSlideUpEaseOut {
+  from {
+    opacity: 0;
+    transform: translateY(100%) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes iosSlideDownEaseIn {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100%) scale(0.96);
+  }
+}
+
+@keyframes iosSheetUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes iosViewEnter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes iosViewExitRight {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(36px) scale(0.97);
+  }
+}
+
+@keyframes iosExpandSection {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes iosPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-ios-backdrop {
+  animation: iosBackdropFade 0.22s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-ios-backdrop-out {
+  animation: iosBackdropFadeOut 0.22s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+.animate-ios-slide-up {
+  animation: iosSlideUpEaseOut 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-ios-slide-down {
+  animation: iosSlideDownEaseIn 0.22s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+.animate-ios-sheet {
+  animation: iosSheetUp 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-ios-view-enter {
+  animation: iosViewEnter 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.animate-ios-view-exit {
+  animation: iosViewExitRight 0.22s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+.animate-ios-expand {
+  animation: iosExpandSection 0.24s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-ios-pop {
+  transform-origin: top right;
+  animation: iosPopIn 0.22s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ==========================================================================
+   v1.7 — LIQUID GLASS (capa flotante) + ERGONOMÍA iPHONE + SPRING DYNAMICS
+   Cristal solo en controles flotantes; el contenido usa superficies sólidas OLED.
+   Únicamente se animan propiedades aceleradas por GPU (transform / opacity).
+   ========================================================================== */
+
+/* Cristal óptico: vibrancy + borde especular de refracción + brillo interno superior */
+.unified-sticky-header,
+.liquid-glass,
+.liquid-glass-heavy,
+.pos-summary-bar-inner,
+.ios-supplier-dropdown {
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+}
+
+.liquid-glass,
+.liquid-glass-heavy,
+.ios-supplier-dropdown {
+  border: 1px solid var(--border-specular);
+  box-shadow: var(--glass-highlight), var(--shadow-floating);
+}
+
+.unified-sticky-header {
+  box-shadow: var(--glass-highlight);
+  will-change: transform;
+}
+
+/* Capa de contenido: tarjetas sólidas sin blur (rendimiento 60/120 FPS) */
+.hig-card {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: var(--bg-elevated-solid);
+  border-radius: 24px;
+}
+
+/* Tipografía: números tabulares en todo valor numérico y tracking ajustado en títulos */
+input,
+.cop-mono,
+.tabular-nums,
+[class*="cop-"] {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+h1,
+h2,
+h3,
+.ios-large-title {
+  letter-spacing: -0.02em;
+}
+
+/* Área táctil mínima de 44x44 en botones circulares e iconos */
+.w-6.h-6[type="button"],
+.w-7.h-7[type="button"],
+.w-8.h-8[type="button"],
+.w-10.h-10[type="button"],
+button.w-6.h-6,
+button.w-7.h-7,
+button.w-8.h-8 {
+  position: relative;
+}
+
+button.w-6.h-6::after,
+button.w-7.h-7::after,
+button.w-8.h-8::after,
+button.w-10.h-10::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+}
+
+.btn-electric,
+.tactile-chip {
+  min-height: 36px;
+}
+
+/* Micro-compresión física al tocar */
+.active\:scale-\[0\.97\]:active { transform: scale(0.97); }
+.w-11 { width: 2.75rem; }
+.h-11 { height: 2.75rem; }
+
+.btn-electric:active,
+.tactile-chip:active,
+button:active {
+  transition-duration: 0.12s;
+}
+
+.btn-electric:active {
+  transform: scale(0.97);
+}
+
+/* Bottom Sheets: esquinas superiores continuas de 32–36px y salida con inercia natural */
+.rounded-t-3xl {
+  border-top-left-radius: 34px;
+  border-top-right-radius: 34px;
+}
+
+@media (min-width: 640px) {
+  .sm\:rounded-3xl { border-radius: 34px; }
+}
+
+/* Fondo trasero atenuado al abrir un sheet (opacity/transform únicamente) */
+.animate-ios-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Microinteracción de cabecera de modal y chips con curva spring */
+.tactile-chip,
+.hig-card-interactive,
+.fab-icon-only {
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "appId": "com.sebaspos.app",
+  "appName": "Sebas POS",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https",
+    "iosScheme": "capacitor"
+  },
+  "ios": {
+    "contentInset": "always",
+    "preferredContentMode": "mobile"
+  }
+}
